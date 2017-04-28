@@ -103,9 +103,10 @@ def show_all_lists(lists_by_name):
     """
 
     for k, v in lists_by_name.items():
-        # save the value result in a variable, and then iterate 
-        # through the variable and then print.
-        print k, v  
+        print "\n", k
+        for item in v:
+            print item
+        
     pass
 
 
