@@ -21,7 +21,7 @@ def add_new_shopping_list(lists_by_name, new_list_name):
       None
     """
 
-    # your code here! 
+    lists_by_name[new_list_name] = []
     pass
 
 
@@ -38,9 +38,9 @@ def remove_shopping_list(lists_by_name, list_name_to_remove):
       None
     """
 
-    # your code here! 
+    if list_name in lists_by_name:
+        del lists_by_name[list_name] 
     pass
-
 
 def add_to_shopping_list(lists_by_name, list_name, items):
     """Add given items to shopping list.
@@ -52,7 +52,7 @@ def add_to_shopping_list(lists_by_name, list_name, items):
     Returns:
       None
     """
-
+# 
     # your code here! 
     pass
 
@@ -88,7 +88,8 @@ def display_shopping_list(lists_by_name, list_name):
       None
     """
 
-    # your code here! 
+    for list_name in lists_by_name.get(list_name):
+        print list_name
     pass
 
 
@@ -101,7 +102,10 @@ def show_all_lists(lists_by_name):
       None
     """
 
-    # your code here! 
+    for k, v in lists_by_name.items():
+        # save the value result in a variable, and then iterate 
+        # through the variable and then print.
+        print k, v  
     pass
 
 
@@ -151,9 +155,9 @@ def edit_shopping_list(lists_by_name, list_name, add_or_remove):
 
     # add or remove, according to the argument
     if add_or_remove == 'add':
-        add_to_shopping_list(shopping_lists_by_name, list_name, items)
+        add_to_shopping_list(lists_by_name, list_name, items)
     else:
-        remove_from_shopping_list(shopping_lists_by_name, list_name, items)
+        remove_from_shopping_list(lists_by_name, list_name, items)
 
 
 def get_menu_choice():
@@ -178,14 +182,14 @@ def get_menu_choice():
     return choice
 
 
-def execute_repl(shopping_lists_by_name):
+def execute_repl(lists_by_name):
     """Execute the repl loop for the control structure of the program. 
 
     (REPL stands for Read - Eval - Print Loop. For more info: 
     https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop)
 
     Arguments:
-        shopping_lists_by_name: dict of shopping lists
+        lists_by_name: dict of shopping lists
     Returns:
         None
     """
@@ -204,19 +208,19 @@ def execute_repl(shopping_lists_by_name):
             # show all lists
 
             # call function to display all lists
-            show_all_lists(shopping_lists_by_name)
+            show_all_lists(lists_by_name)
 
         elif choice == 3:
             # Add a new shopping list
 
             # get name of list and add it
             list_name = raw_input('Enter the name for your list: ')
-            add_new_shopping_list(shopping_lists_by_name, list_name)
+            add_new_shopping_list(lists_by_name, list_name)
 
             # get items for list and add them
             input_str = raw_input('Please enter items separated by commas: ')
             items = parse_string_of_items(input_str)
-            shopping_lists_by_name[list_name] = items
+            lists_by_name[list_name] = items
 
         elif choice == 7:
             # quit
@@ -232,7 +236,7 @@ def execute_repl(shopping_lists_by_name):
             list_name = raw_input('Which list would you like to see? ')
 
             # test to see if the list is in the shopping list dict
-            if list_name not in shopping_lists_by_name:
+            if list_name not in lists_by_name:
                 # no list by this name :-(
                 print 'There is no {} list.'.format(list_name)            
                 continue
@@ -243,26 +247,26 @@ def execute_repl(shopping_lists_by_name):
             if choice == 2:
                 # show a specific list
 
-                display_shopping_list(shopping_lists_by_name, list_name)
+                display_shopping_list(lists_by_name, list_name)
 
             elif choice == 4:
                 # Add item(s) to a shopping list
 
                 # add items to the shopping list
-                edit_shopping_list(shopping_lists_by_name, list_name, 'add')
+                edit_shopping_list(lists_by_name, list_name, 'add')
 
             elif choice == 5:
                 # Remove an item from a shopping list
 
                 # add items to the shopping list
-                edit_shopping_list(shopping_lists_by_name, list_name, 'remove')
+                edit_shopping_list(lists_by_name, list_name, 'remove')
 
             elif choice == 6:
                 # remove list
 
-                remove_shopping_list(shopping_lists_by_name, list_name)
+                remove_shopping_list(lists_by_name, list_name)
 
 # Main code here
 
-shopping_lists_by_name = {}  # key is list name, value is [shopping list]
-execute_repl(shopping_lists_by_name)
+lists_by_name = {}  # key is list name, value is [shopping list]
+execute_repl(lists_by_name)
