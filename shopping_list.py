@@ -53,7 +53,7 @@ def add_to_shopping_list(lists_by_name, list_name, items):
       None
     """
 # 
-    # your code here! 
+    lists_by_name[list_name].extend(items) 
     pass
 
 
@@ -71,7 +71,11 @@ def remove_from_shopping_list(lists_by_name, list_name, items):
       None
     """
 
-    # your code here! 
+    for item in items:
+        if item in lists_by_name.get(list_name):
+            lists_by_name[list_name].remove(item)
+        else: 
+            print "Item not found in list"
     pass
 
 
